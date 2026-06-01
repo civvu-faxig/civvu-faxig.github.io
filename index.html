@@ -14,6 +14,8 @@
   <body>
     <main class="root">
       <audio id="music" src="./nateplokhode.mp3" loop preload="auto"></audio>
+      <audio id="goida-sound" src="./goida.mp3" preload="auto"></audio>
+
 
       <div class="shader-shell" aria-hidden="true">
         <canvas id="shader" class="shader-canvas"></canvas>
@@ -95,9 +97,10 @@
                       <h2 class="card__name">морфин лох=)</h2>
                       <p class="card__desc">привет это навальный я завел себе тикток аккаунт</p>
                       <div class="card__chips">
-                        <span class="chip">zov</span>
-                        <span class="chip">сво</span>
-                        <span class="chip">гойда</span>
+                      <span class="chip">zov</span>
+                      <span class="chip">сво</span>
+                      <span class="chip" style="cursor: pointer;" onclick="const bgMusic = document.getElementById('music'); const goidaSound = document.getElementById('goida-sound'); bgMusic.pause(); goidaSound.play(); goidaSound.onended = () => { bgMusic.play(); };">гойда</span>
+
                       </div>
                     </div>
                     <a href="https://telegram.me/civvu" target="_blank" rel="noreferrer" class="card" style="position: relative; z-index: 9999;">
