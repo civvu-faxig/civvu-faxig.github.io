@@ -566,11 +566,20 @@ a {
   0%, 100% { transform: translateY(0); opacity: 0.42; }
   50% { transform: translateY(8px); opacity: 0.78; }
 }
-/* Железная разблокировка всего интерфейса */
+/* Полная и окончательная разблокировка сайта */
 * {
   pointer-events: auto !important;
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
 }
-#music-menu, .pill, .card, .chip, a, button, [onclick] {
+
+#music-menu {
   pointer-events: auto !important;
   z-index: 999999999 !important;
+  touch-action: none !important;
+}
+
+#music-menu button, #custom-mute-btn, #mute-icon {
+  pointer-events: auto !important;
+  cursor: pointer !important;
 }
