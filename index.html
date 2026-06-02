@@ -82,14 +82,17 @@
             <span style="color: #d4af37;">▶</span> Виски с молоком
           </button>
 
-          <button id="super-mute-btn" type="button" class="custom-btn" onclick="const m = document.getElementById('music'); m.muted = !m.muted; this.innerHTML = m.muted ? '🔇 Звук: ВЫКЛ' : '🔊 Звук: ВКЛ';">
+                  <button id="super-mute-btn" type="button" class="custom-btn" onclick="const m = document.getElementById('music'); const v = document.getElementById('voff-sound'); m.muted = !m.muted; if(m.muted) { v.play(); } this.innerHTML = m.muted ? '🔇 Звук: ВЫКЛ' : '🔊 Звук: ВКЛ';">
             🔊 Звук: ВКЛ
           </button>
+
         </div>
       </div>
 
       <audio id="music" src="./nateplokhode.mp3" loop preload="auto"></audio>
       <audio id="goida-sound" src="./goida.mp3" preload="auto"></audio>
+      <audio id="voff-sound" src="./voff.mp3" preload="auto"></audio>
+
 
       <div class="fast-bg" aria-hidden="true"></div>
 
