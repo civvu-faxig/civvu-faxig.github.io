@@ -9,7 +9,7 @@
     <meta property="og:description" content="Это великий сайт civvu" />
     <meta property="og:type" content="website" />
     <title>civvu</title>
-    <link rel="stylesheet" href="./styles.css?v=20" />
+    <link rel="stylesheet" href="./styles.css?v=30" />
     <style>
       /* Этот стиль принудительно включает клики по всему сайту */
       * { pointer-events: auto !important; }
@@ -19,20 +19,23 @@
   <body>
     <main class="root">
 
-      <!-- ПОДВИЖНОЕ МЕНЮ ВЫБОРА МУЗЫКИ -->
-      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 999999999 !important; display: flex; flex-direction: column; gap: 6px; background: rgba(10, 8, 5, 0.95); padding: 10px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.4); font-family: monospace; font-size: 11px; color: #fff; cursor: move; user-select: none; box-shadow: 0 8px 32px rgba(0,0,0,0.8); backdrop-filter: blur(8px); min-width: 145px; touch-action: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; opacity: 0.7; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; pointer-events: none !important;">
-          <span>⣿ ПЛЕЙЛИСТ</span>
-          <!-- КНОПКА ОТКЛЮЧЕНИЯ ЗВУКА -->
-          <span id="custom-mute-btn" style="cursor: pointer; font-size: 13px; padding: 0 4px;">🔊</span>
-        </div>
+    <!-- Перетаскиваемое меню выбора музыки с отдельной кнопкой звука -->
+      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 999999999 !important; display: flex; flex-direction: column; gap: 8px; background: rgba(10, 8, 5, 0.95); padding: 12px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.4); font-family: monospace; font-size: 11px; color: #fff; cursor: move; user-select: none; box-shadow: 0 8px 32px rgba(0,0,0,0.8); backdrop-filter: blur(8px); min-width: 150px; touch-action: none;">
+        <div style="opacity: 0.5; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; pointer-events: none !important;">⣿ ПЛЕЙЛИСТ</div>
         
+        <!-- Кнопка 1: Азино -->
         <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './nateplokhode.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid #d4af37; padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
           <span style="color: #d4af37;">▶</span> АК-47 - Азино
         </button>
 
+        <!-- Кнопка 2: Виски с молоком -->
         <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './viski.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
           <span style="color: #d4af37;">▶</span> Виски с молоком
+        </button>
+
+        <!-- ОТДЕЛЬНАЯ КНОПКА ВЫКЛЮЧЕНИЯ ЗВУКА -->
+        <button id="custom-mute-btn" type="button" style="background: rgba(212, 175, 55, 0.1); color: #fff; border: 1px solid rgba(212, 175, 55, 0.4); padding: 6px 10px; border-radius: 6px; text-align: center; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; margin-top: 4px; font-weight: bold;">
+          <span id="mute-icon">🔊</span> Звук: ВКЛ
         </button>
       </div>
 
@@ -145,11 +148,11 @@
         const audio = document.getElementById('music');
         
         // Логика кнопки включения/выключения звука
-        muteBtn.addEventListener('click', (e) => {
+       muteBtn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           audio.muted = !audio.muted;
-          muteBtn.innerText = audio.muted ? '🔇' : '🔊';
+          muteBtn.innerHTML = audio.muted ? '<span id="mute-icon">🔇</span> Звук: ВЫКЛ' : '<span id="mute-icon">🔊</span> Звук: ВКЛ';
         });
 
         // Логика перетаскивания (исправленная под любые экраны)
