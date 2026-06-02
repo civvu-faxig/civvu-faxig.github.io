@@ -566,3 +566,11 @@ a {
   0%, 100% { transform: translateY(0); opacity: 0.42; }
   50% { transform: translateY(8px); opacity: 0.78; }
 }
+/* Железная разблокировка всего интерфейса */
+* {
+  pointer-events: auto !important;
+}
+#music-menu, .pill, .card, .chip, a, button, [onclick] {
+  pointer-events: auto !important;
+  z-index: 999999999 !important;
+}
