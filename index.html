@@ -13,15 +13,20 @@
   </head>
   <body>
     <main class="root">
-                <!-- Перетаскиваемое меню выбора музыки -->
-      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 99999; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.8); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); font-family: sans-serif; font-size: 12px; color: #fff; cursor: move; user-select: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-        <span style="opacity: 0.7; display: flex; align-items: center; gap: 4px;">⣿ Музыка:</span>
-        <select id="music-select" onchange="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = this.value; bgMusic.load(); if(wasPlaying) { bgMusic.play().catch(e => {}); }" style="background: #111; color: #fff; border: 1px solid #333; padding: 3px 6px; border-radius: 4px; cursor: pointer; outline: none; font-size: 12px;">
-          <option value="./nateplokhode.mp3">АК-47 - Азино777</option>
-          <option value="./viski.mp3">Виски с молоком</option>
-        </select>
-      </div>
+            <!-- Красивое кастомное меню выбора музыки -->
+      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 99999; display: flex; flex-direction: column; gap: 6px; background: rgba(10, 8, 5, 0.85); padding: 10px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.2); font-family: monospace; font-size: 11px; color: #fff; cursor: move; user-select: none; box-shadow: 0 8px 32px rgba(0,0,0,0.7); backdrop-filter: blur(8px); min-width: 140px;">
+        <div style="opacity: 0.5; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; display: flex; align-items: center; gap: 4px;">⣿ ПЛЕЙЛИСТ</div>
+        
+        <!-- Кнопка 1: Азино -->
+        <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './nateplokhode.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid #d4af37; padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
+          <span style="color: #d4af37;">▶</span> АК-47 - Азино
+        </button>
 
+        <!-- Кнопка 2: Виски с молоком -->
+        <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './viski.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
+          <span style="color: #d4af37;">▶</span> Виски с молоком
+        </button>
+      </div>
 
       <audio id="music" src="./nateplokhode.mp3" loop preload="auto"></audio>
       <audio id="goida-sound" src="./goida.mp3" preload="auto"></audio>
@@ -149,7 +154,7 @@
         let offsetX, offsetY;
 
         menu.addEventListener('mousedown', (e) => {
-          if (e.target.tagName === 'SELECT') return;
+          if (e.target.tagName === 'BUTTON') return;
           isDragging = true;
           offsetX = e.clientX - menu.offsetLeft;
           offsetY = e.clientY - menu.offsetTop;
@@ -171,7 +176,7 @@
         document.addEventListener('mouseup', () => { isDragging = false; });
 
         menu.addEventListener('touchstart', (e) => {
-          if (e.target.tagName === 'SELECT') return;
+          if (e.target.tagName === 'BUTTON') return;
           isDragging = true;
           const touch = e.touches[0];
           offsetX = touch.clientX - menu.offsetLeft;
