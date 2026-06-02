@@ -9,39 +9,34 @@
     <meta property="og:description" content="Это великий сайт civvu" />
     <meta property="og:type" content="website" />
     <title>civvu</title>
-    <link rel="stylesheet" href="./styles.css?v=6" />
+    <link rel="stylesheet" href="./styles.css?v=10" />
   </head>
   <body>
     <main class="root">
 
-      <!-- Красивое кастомное меню выбора музыки с кнопкой MUTE -->
-      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 99999; display: flex; flex-direction: column; gap: 6px; background: rgba(10, 8, 5, 0.85); padding: 10px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.2); font-family: monospace; font-size: 11px; color: #fff; cursor: move; user-select: none; box-shadow: 0 8px 32px rgba(0,0,0,0.7); backdrop-filter: blur(8px); min-width: 145px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; opacity: 0.5; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;">
-          <span>⣿ ПЛЕЙЛИСТ</span>
-          <!-- Кнопка Вкл/Выкл звук -->
-          <span id="mute-btn" onclick="const m = document.getElementById('music'); m.muted = !m.muted; this.innerText = m.muted ? '🔇' : '🔊'; e.stopPropagation();" style="cursor: pointer; font-size: 12px; padding: 0 2px;">🔊</span>
+      <!-- Независимое и неуязвимое меню музыки -->
+      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 9999999 !important; display: flex; flex-direction: column; gap: 6px; background: rgba(10, 8, 5, 0.95); padding: 10px; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.4); font-family: monospace; font-size: 11px; color: #fff; cursor: move; user-select: none; box-shadow: 0 8px 32px rgba(0,0,0,0.8); backdrop-filter: blur(8px); min-width: 145px; touch-action: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; opacity: 0.7; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;">
+          <span style="pointer-events: none;">⣿ ПЛЕЙЛИСТ</span>
+          <span id="custom-mute-btn" style="cursor: pointer; font-size: 13px; padding: 0 4px; pointer-events: auto !important; z-index: 10000000;">🔊</span>
         </div>
         
-        <!-- Кнопка 1: Азино (файл nateplokhode.mp3) -->
-        <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './nateplokhode.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid #d4af37; padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
+        <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './nateplokhode.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid #d4af37; padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s; pointer-events: auto !important;">
           <span style="color: #d4af37;">▶</span> АК-47 - Азино
         </button>
 
-        <!-- Кнопка 2: Виски с молоком -->
-        <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './viski.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s;">
+        <button type="button" onclick="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = './viski.mp3'; bgMusic.load(); if(wasPlaying) bgMusic.play(); document.querySelectorAll('.playlist-btn').forEach(b => b.style.borderColor = 'rgba(255,255,255,0.1)'); this.style.borderColor = '#d4af37';" class="playlist-btn" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; text-align: left; cursor: pointer; font-family: inherit; font-size: 11px; outline: none; display: flex; align-items: center; gap: 6px; transition: all 0.2s; pointer-events: auto !important;">
           <span style="color: #d4af37;">▶</span> Виски с молоком
         </button>
       </div>
 
-      <!-- Аудио-плееры -->
       <audio id="music" src="./nateplokhode.mp3" loop preload="auto"></audio>
       <audio id="goida-sound" src="./goida.mp3" preload="auto"></audio>
 
-      <!-- Легкий фоновый перелив -->
       <div class="fast-bg" aria-hidden="true"></div>
 
-      <!-- Заставка (Исправленная кнопка входа) -->
-      <button class="gate" id="gate" type="button" aria-label="Enter site" onclick="this.style.display='none'; document.getElementById('music').play();">
+      <!-- Заставка -->
+      <button class="gate" id="gate" type="button" aria-label="Enter site" onclick="this.style.display='none'; document.getElementById('music').play();" style="z-index: 999999 !important;">
         <div class="gate__inner" aria-hidden="true">
           <span class="gate__line"></span>
           <span class="gate__text">click to enter</span>
@@ -59,15 +54,15 @@
                 <p class="hero__bio">Добро пожаловать на мою страницу</p>
                 <p class="hero__stack">html · css · javascript</p>
                 <div class="hero__links">
-                  <!-- Исправленная верхняя ссылка ТГ -->
-                  <a href="https://telegram.me" target="_blank" rel="noreferrer" class="pill pill--tg" aria-label="Telegram" title="Telegram" style="position: relative; z-index: 9999;">
+                  <!-- Железная верхняя кнопка ТГ -->
+                  <div onclick="window.open('https://telegram.me', '_blank')" class="pill pill--tg" style="cursor: pointer; position: relative; z-index: 999999 !important; pointer-events: auto !important;">
                     <span class="pill__icon">
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                         <path d="M20.62 4.37C21.2 4.14 21.8 4.67 21.61 5.27L18.63 19.37C18.48 20.04 17.7 20.34 17.14 19.94L12.46 16.58L10.08 18.9C9.59 19.38 8.75 19.03 8.75 18.35V14.97L17.24 7.58C17.56 7.3 17.14 6.82 16.8 7.06L6.52 14.04L2.92 12.84C2.22 12.61 2.18 11.64 2.86 11.36L20.62 4.37Z" fill="currentColor"></path>
                       </svg>
                     </span>
                     <span class="pill__label">tg</span>
-                  </a>
+                  </div>
                 </div>
               </div>
               <div class="scroll-hint anim-up-late" aria-hidden="true">
@@ -96,12 +91,12 @@
                       <div class="card__chips">
                         <span class="chip">zov</span>
                         <span class="chip">сво</span>
-                        <span class="chip" style="cursor: pointer;" onclick="const bgMusic = document.getElementById('music'); const goidaSound = document.getElementById('goida-sound'); bgMusic.pause(); goidaSound.play(); goidaSound.onended = () => { bgMusic.play(); };">гойда</span>
+                        <span class="chip" style="cursor: pointer; z-index: 999999 !important; position: relative;" onclick="const bgMusic = document.getElementById('music'); const goidaSound = document.getElementById('goida-sound'); bgMusic.pause(); goidaSound.play(); goidaSound.onended = () => { bgMusic.play(); };">гойда</span>
                       </div>
                     </div>
 
-                    <!-- Исправленная нижняя ссылка ТГ -->
-                    <a href="https://telegram.me" target="_blank" rel="noreferrer" class="card" style="position: relative; z-index: 9999;">
+                    <!-- Железная нижняя кнопка ТГ -->
+                    <div onclick="window.open('https://telegram.me', '_blank')" class="card" style="position: relative; z-index: 999999 !important; cursor: pointer; pointer-events: auto !important;">
                       <p class="card__eyebrow">связь</p>
                       <h2 class="card__name">Контакты</h2>
                       <p class="card__desc">великий тг civvu</p>
@@ -110,13 +105,13 @@
                         <span class="chip">online</span>
                       </div>
                       <span class="card__link">@civvu -></span>
-                    </a>
+                    </div>
                   </div>
                 </div>
 
                 <footer class="footer anim-up-late" style="position: relative; z-index: 9999; display: flex; flex-direction: column; gap: 4px; font-size: 11px; opacity: 0.5; padding: 20px 0;">
                   <div class="footer__meta" style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <span style="cursor: pointer;" onclick="alert('Сам лох!')">Кто прочитал тот лох</span>
+                    <span style="cursor: pointer; z-index: 999999 !important; position: relative;" onclick="alert('Сам лох!')">Кто прочитал тот лох</span>
                     <span>·</span>
                     <span>Этот site я не спиздил у зет 100%</span>
                   </div>
@@ -124,7 +119,7 @@
                     <span>civvu</span>
                     <span>·</span>
                     <span>2026</span>
-                    <span style="cursor: pointer; opacity: 0.3; font-weight: bold; padding: 0 4px;" onclick="alert('морфин срал в толчке и сфоткал')">.</span>
+                    <span style="cursor: pointer; opacity: 0.3; font-weight: bold; padding: 0 4px; z-index: 999999 !important; position: relative;" onclick="alert('морфин срал в толчке и сфоткал')">.</span>
                   </div>
                 </footer>
               </div>
@@ -134,30 +129,31 @@
       </div>
     </main>
 
-    <!-- Скрипт плавного перетаскивания меню -->
+    <!-- Полностью защищенный изолированный скрипт управления -->
     <script>
-      (function() {
+      window.addEventListener('load', () => {
         const menu = document.getElementById('music-menu');
+        const muteBtn = document.getElementById('custom-mute-btn');
+        const audio = document.getElementById('music');
+        
+        // Логика кнопки MUTE
+        muteBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          audio.muted = !audio.muted;
+          muteBtn.innerText = audio.muted ? '🔇' : '🔊';
+        });
+
+        // Логика ПЕРЕТАСКИВАНИЯ (устойчивая к внешним блокировкам)
         let isDragging = false;
-        let offsetX, offsetY;
+        let startX, startY, initialLeft, initialTop;
 
-        menu.addEventListener('mousedown', (e) => {
-          if (e.target.tagName === 'BUTTON' || e.target.id === 'mute-btn') return;
+        function startDrag(clientX, clientY) {
           isDragging = true;
-          offsetX = e.clientX - menu.offsetLeft;
-          offsetY = e.clientY - menu.offsetTop;
+          startX = clientX;
+          startY = clientY;
+          initialLeft = menu.offsetLeft;
+          initialTop = menu.offsetTop;
           menu.style.transition = 'none';
-        });
+        }
 
-        document.addEventListener('mousemove', (e) => {
-          if (!isDragging) return;
-          let x = e.clientX - offsetX;
-          let y = e.clientY - offsetY;
-          const maxX = window.innerWidth - menu.offsetWidth;
-          const maxY = window.innerHeight - menu.offsetHeight;
-          x = Math.max(0, Math.min(x, maxX));
-          y = Math.max(0, Math.min(y, maxY));
-          menu.style.left = x + 'px';
-          menu.style.top = y + 'px';
-        });
-
+        function doDrag(clientX, clientY) {
