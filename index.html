@@ -13,15 +13,15 @@
   </head>
   <body>
     <main class="root">
-            <!-- Меню выбора музыки -->
-      <div style="position: fixed; top: 15px; left: 15px; z-index: 99999; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); font-family: sans-serif; font-size: 12px; color: #fff;">
-        <span style="opacity: 0.7;">Музыка:</span>
+                <!-- Перетаскиваемое меню выбора музыки -->
+      <div id="music-menu" style="position: fixed; top: 15px; left: 15px; z-index: 99999; display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.8); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); font-family: sans-serif; font-size: 12px; color: #fff; cursor: move; user-select: none; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <span style="opacity: 0.7; display: flex; align-items: center; gap: 4px;">⣿ Музыка:</span>
         <select id="music-select" onchange="const bgMusic = document.getElementById('music'); const wasPlaying = !bgMusic.paused; bgMusic.src = this.value; bgMusic.load(); if(wasPlaying) { bgMusic.play().catch(e => {}); }" style="background: #111; color: #fff; border: 1px solid #333; padding: 3px 6px; border-radius: 4px; cursor: pointer; outline: none; font-size: 12px;">
           <option value="./nateplokhode.mp3">АК-47 - Азино777</option>
-
           <option value="./viski.mp3">Виски с молоком</option>
         </select>
       </div>
+
 
       <audio id="music" src="./nateplokhode.mp3" loop preload="auto"></audio>
       <audio id="goida-sound" src="./goida.mp3" preload="auto"></audio>
@@ -141,17 +141,61 @@
                     <!-- А вот и секретная точка -->
                     <span style="cursor: pointer; opacity: 0.3; font-weight: bold; padding: 0 4px;" onclick="alert('морфин срал в толчке и сфоткал')">.</span>
                   </div>
-                </footer>
+                  </footer>
+                      <script>
+      (function() {
+        const menu = document.getElementById('music-menu');
+        let isDragging = false;
+        let offsetX, offsetY;
 
-                  <div class="footer__meta" style="margin-top: 4px;">
-                    <span>civvu</span>
-                    <span>·</span>
-                    <span>2026</span>
-                  </div>
-                </footer>
+        menu.addEventListener('mousedown', (e) => {
+          if (e.target.tagName === 'SELECT') return;
+          isDragging = true;
+          offsetX = e.clientX - menu.offsetLeft;
+          offsetY = e.clientY - menu.offsetTop;
+          menu.style.transition = 'none';
+        });
 
-                  </div>
-                </footer>
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          let x = e.clientX - offsetX;
+          let y = e.clientY - offsetY;
+          const maxX = window.innerWidth - menu.offsetWidth;
+          const maxY = window.innerHeight - menu.offsetHeight;
+          x = Math.max(0, Math.min(x, maxX));
+          y = Math.max(0, Math.min(y, maxY));
+          menu.style.left = x + 'px';
+          menu.style.top = y + 'px';
+        });
+
+        document.addEventListener('mouseup', () => { isDragging = false; });
+
+        menu.addEventListener('touchstart', (e) => {
+          if (e.target.tagName === 'SELECT') return;
+          isDragging = true;
+          const touch = e.touches[0];
+          offsetX = touch.clientX - menu.offsetLeft;
+          offsetY = touch.clientY - menu.offsetTop;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          const touch = e.touches[0];
+          let x = touch.clientX - offsetX;
+          let y = touch.clientY - offsetY;
+          const maxX = window.innerWidth - menu.offsetWidth;
+          const maxY = window.innerHeight - menu.offsetHeight;
+          x = Math.max(0, Math.min(x, maxX));
+          y = Math.max(0, Math.min(y, maxY));
+          menu.style.left = x + 'px';
+          menu.style.top = y + 'px';
+        });
+
+        document.addEventListener('touchend', () => { isDragging = false; });
+      })();
+    </script>
+
+              
               </div>
             </section>
           </div>
@@ -159,6 +203,7 @@
       </div>
     </main>
 
+    
     <script src="./script.js"></script>
   </body>
 </html>
